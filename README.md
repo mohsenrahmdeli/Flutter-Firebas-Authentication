@@ -1,4 +1,4 @@
-<h1>Flutter Firebase Authentication</h1>
+<h1 align="center">Flutter Firebase Authentication</h1>
 <h3>You can using this code in your project to sign in your application with Google and Apple sign in method.</h3>
 <h4>Go to the Firebase console and create a project, and then add the corresponding settings, which are in the form of a json file, to your project.</h4>
 <h4>Remember from the Authentication section and the Sign-in method tab, you must enable 'Email/Password' and 'Google' and 'Apple'.</h4>
