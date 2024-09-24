@@ -7,4 +7,4 @@
 <h6>in terminal : flutter pub add firebase_auth</h6>
 <h6>in terminal : flutter pub add google_sign_in</h6>
 <h6>in terminal : flutter pub add the_apple_sign_in</h6>
-<h4>Now you can use these codes for your Application. When the authentication is done correctly, the user will go to the Home page.</h4>
+<h4>Now you can use these codes for your Application. When the authentication is done correctly or sign up with email and password, the user will go to the Home page.</h4>
