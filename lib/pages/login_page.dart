@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:login_with_firebase_google_apple/components/my_button.dart';
 import 'package:login_with_firebase_google_apple/components/my_textfield.dart';
 import 'package:login_with_firebase_google_apple/components/square_tile.dart';
+import '../components/snackbar.dart';
 import 'auth_services.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +17,16 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final forgetPasswordController = TextEditingController();
+  final auth = FirebaseAuth.instance;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    forgetPasswordController.dispose();
+    super.dispose();
+  }
 
   void signUserIn() async {
     showDialog(
@@ -74,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               Text(
-                'Wlecome back you\'ve been missed!',
+                'Welcome back, you\'ve been missed!',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
@@ -104,8 +115,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]))
+                    InkWell(
+                      onTap: () => myDialog(context),
+                      child: const Text('Forgot Password?',
+                          style: TextStyle(color: Colors.blue)),
+                    )
                   ],
                 ),
               ),
@@ -187,5 +201,87 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       )),
     );
+  }
+
+  void myDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      const Text(
+                        'Forgot Your Password',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: forgetPasswordController,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Enter the Email',
+                        hintText: 'eg abc@gmail.com',
+                        hintStyle: TextStyle(color: Colors.grey)),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    onPressed: () async {
+                      await auth
+                          .sendPasswordResetEmail(
+                              email: forgetPasswordController.text)
+                          .then((value) {
+                        showSnackBar(context,
+                            'We have sent a reset password link to your email, Please check it!');
+                      }).onError((error, stackTrace) {
+                        showSnackBar(context, error.toString());
+                      });
+                      Navigator.pop(context);
+                      forgetPasswordController.clear();
+                    },
+                    child: const Text(
+                      'Send',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
