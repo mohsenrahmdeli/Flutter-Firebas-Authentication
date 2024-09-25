@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:login_with_firebase_google_apple/components/my_button.dart';
 import 'package:login_with_firebase_google_apple/components/my_textfield.dart';
 import 'package:login_with_firebase_google_apple/components/square_tile.dart';
-
 import 'auth_services.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -114,9 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 10,
               ),
               MyButton(
-                onTap: signUserIn,
-                text: 'Sign In'
-              ),
+                onTap: signUserIn, 
+                text: 'Sign In'),
               const SizedBox(
                 height: 20,
               ),
@@ -143,21 +141,27 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-                Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareTile(
-                    onTap:() => AuthService().signInWithGoogle(),
-                    imagePath: 'assets/images/google.png'),
+                      onTap: () => AuthService().signInWithGoogle(),
+                      imagePath: 'assets/images/google.png'),
                   const SizedBox(
                     width: 25,
                   ),
-                  SquareTile(
-                    onTap: () => AuthService().signInWithApple(),
-                    imagePath: 'assets/images/apple.png', ),
+                  SizedBox(
+                    width: 85,
+                    child: SquareTile(
+                      onTap: () => AuthService().signInWithApple(),
+                      imagePath: 'assets/images/apple.png',
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
