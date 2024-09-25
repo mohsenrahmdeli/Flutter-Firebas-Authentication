@@ -20,7 +20,10 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: const Center(
-        child: Text('Logged in'),
+        child: Text(
+          'You Logged in',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+        ),
       ),
     );
   }
