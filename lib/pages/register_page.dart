@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:login_with_firebase_google_apple/components/my_button.dart';
 import 'package:login_with_firebase_google_apple/components/my_textfield.dart';
 import 'package:login_with_firebase_google_apple/components/square_tile.dart';
-
 import 'auth_services.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -143,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(
                 height: 20,
               ),
-               Row(
+                Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SquareTile(
@@ -152,9 +151,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(
                     width: 25,
                   ),
-                  SquareTile(
-                    onTap: () => AuthService().signInWithApple(),
-                    imagePath: 'assets/images/apple.png', ),
+                  SizedBox(
+                    width: 85,
+                    child: SquareTile(
+                      onTap: () => AuthService().signInWithApple(),
+                      imagePath: 'assets/images/apple.png',
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
